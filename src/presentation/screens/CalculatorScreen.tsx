@@ -1,6 +1,6 @@
 import { colors, styles } from '@/src/config/theme/app-theme'
 import React from 'react'
-import { Pressable, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import { CalculatorButton } from '../components/CalculatorButton'
 import { useCalculator } from '../hooks/useCalculator'
 
@@ -9,6 +9,7 @@ export const CalculatorScreen = () => {
     const {
         number,
         prevNumber,
+        formula,
         buildNumber,
         toggleSign,
         clean,
@@ -23,8 +24,12 @@ export const CalculatorScreen = () => {
     return (
         <View style={styles.calculatorContainer}>
             <View style={{ paddingHorizontal: 30, paddingBottom: 20 }}>
-                <Text adjustsFontSizeToFit numberOfLines={1} style={styles.mainResult}>{number}</Text>
-                <Text style={styles.subResult}>{(prevNumber) === '0' ? '' : prevNumber}</Text>
+                <Text adjustsFontSizeToFit numberOfLines={1} style={styles.mainResult}>{formula}</Text>
+                {(formula === prevNumber) ?
+                    <Text style={styles.subResult}></Text>
+                    :
+                    <Text style={styles.subResult}>{prevNumber}</Text>
+                }
             </View>
             <View style={styles.row}>
                 <CalculatorButton label='C' color={colors.lightGray} blackText onPress={() => clean()} />
